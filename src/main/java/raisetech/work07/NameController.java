@@ -4,6 +4,7 @@ package raisetech.work07;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -32,8 +33,9 @@ public class NameController {
     }
 
     @PostMapping("/names")
-    public ResponseEntity<Map<String, String>> create(@RequestBody CreateForm form) {
-        URI url = UriComponentsBuilder.fromUriString("http://localhost8081")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Map<String, String>> create(@RequestBody CreateForm form, UriComponentsBuilder uriBuilder) {
+        URI url = uriBuilder
                 .path("/names/id")
                 .build()
                 .toUri();
